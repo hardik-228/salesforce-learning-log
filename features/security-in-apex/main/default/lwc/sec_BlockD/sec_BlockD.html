@@ -1,0 +1,49 @@
+<template>
+    <lightning-card title="Dynamic SOQL/SOSL & Injection Protection" icon-name="standard:search">
+        <div class="slds-p-horizontal_medium">
+            <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_small">
+                The default search term below is a classic injection attempt. Compare how each
+                method handles it.
+            </p>
+
+            <lightning-input
+                label="Search term"
+                value={searchTerm}
+                onchange={handleTermChange}
+                class="slds-m-bottom_small">
+            </lightning-input>
+
+            <lightning-button
+                label="Run all searches"
+                variant="brand"
+                onclick={runAll}
+                class="slds-m-bottom_medium">
+            </lightning-button>
+
+            <template if:true={isLoading}>
+                <lightning-spinner alternative-text="Running..." size="small"></lightning-spinner>
+            </template>
+
+            <template for:each={results} for:item="r">
+                <div key={r.label} class="slds-box slds-m-bottom_small">
+                    <p class="slds-text-heading_small">{r.label}</p>
+                    <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_x-small">{r.risk}</p>
+
+                    <template if:true={r.error}>
+                        <p class="slds-text-color_error">Error: {r.error}</p>
+                    </template>
+
+                    <template if:false={r.error}>
+                        <p class="slds-m-bottom_x-small"><strong>{r.count}</strong> record(s) returned</p>
+                        <lightning-datatable
+                            key-field="Id"
+                            data={r.records}
+                            columns={columns}
+                            hide-checkbox-column>
+                        </lightning-datatable>
+                    </template>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

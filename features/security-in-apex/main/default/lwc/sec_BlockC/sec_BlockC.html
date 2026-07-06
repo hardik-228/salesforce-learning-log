@@ -1,0 +1,82 @@
+<template>
+    <lightning-card title="DML Security" icon-name="standard:record_update">
+        <div class="slds-p-horizontal_medium">
+            <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_small">
+                Toggle the demo user's permission set between "Name only" and "none" between
+                runs to see each method react differently to the same click.
+            </p>
+
+            <!-- Account List for Easy Testing -->
+            <div class="slds-box slds-theme_shade slds-m-bottom_medium">
+                <div class="slds-grid slds-grid_align-spread slds-m-bottom_x-small">
+                    <span class="slds-text-title_bold">Select an Account to Populate Fields</span>
+                    <lightning-button label="Refresh List" icon-name="utility:refresh" variant="border" onclick={fetchAccounts} size="small"></lightning-button>
+                </div>
+                <div style="height: 150px;">
+                    <lightning-datatable
+                        key-field="Id"
+                        data={accounts}
+                        columns={columns}
+                        max-row-selection="1"
+                        onrowselection={handleAccountSelect}>
+                    </lightning-datatable>
+                </div>
+            </div>
+
+            <lightning-input
+                label="Account Id to update"
+                value={accountId}
+                disabled
+                placeholder="Select an account from the list above"
+                class="slds-m-bottom_small">
+            </lightning-input>
+
+            <lightning-input
+                label="New Name value"
+                value={newName}
+                onchange={handleNewNameChange}
+                placeholder="e.g. Security Demo Update"
+                class="slds-m-bottom_medium">
+            </lightning-input>
+
+            <lightning-input
+                type="number"
+                label="Annual Revenue"
+                value={annualRevenue}
+                onchange={handleAnnualRevenueChange}
+                placeholder="e.g. 50000"
+                class="slds-m-bottom_medium">
+            </lightning-input>
+
+            <div class="slds-grid slds-wrap slds-gutters slds-m-bottom_medium">
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-p-bottom_x-small">
+                    <lightning-button label="1. No check" onclick={run1NoCheck} class="slds-size_1-of-1"></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-p-bottom_x-small">
+                    <lightning-button label="2. Field check" onclick={run2FieldCheck} class="slds-size_1-of-1"></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-p-bottom_x-small">
+                    <lightning-button label="3. Object check" onclick={run3ObjectCheck} class="slds-size_1-of-1"></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-p-bottom_x-small">
+                    <lightning-button label="4. as user" onclick={run4AsUser} class="slds-size_1-of-1"></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-p-bottom_x-small">
+                    <lightning-button label="5. USER_MODE (Database.)" onclick={run5UserModeDb} class="slds-size_1-of-1"></lightning-button>
+                </div>
+                <div class="slds-col slds-size_1-of-2 slds-medium-size_1-of-3 slds-p-bottom_x-small">
+                    <lightning-button label="6. stripInaccessible" onclick={run6StripInaccessible} class="slds-size_1-of-1"></lightning-button>
+                </div>
+            </div>
+
+            <lightning-button label="Clear log" variant="destructive-text" onclick={clearLog} class="slds-m-bottom_medium"></lightning-button>
+
+            <template for:each={log} for:item="entry">
+                <div key={entry.id} class={entry.cssClass}>
+                    <p class="slds-text-heading_small">{entry.method}</p>
+                    <p>{entry.message}</p>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>

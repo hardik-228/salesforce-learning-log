@@ -1,0 +1,10 @@
+{
+    "packageDirectories": [
+        { "path": "force-app", "default": true },
+        { "path": "features/security-in-apex" }
+    ],
+    "name": "Salesforce_Utills",
+    "namespace": "",
+    "sfdcLoginUrl": "https://login.salesforce.com",
+    "sourceApiVersion": "65.0"
+}

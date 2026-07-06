@@ -1,0 +1,44 @@
+<template>
+    <lightning-card title="Object & Field-Level Security (CRUD/FLS)" icon-name="utility:lock">
+        <div class="slds-p-horizontal_medium slds-p-bottom_small">
+            <p class="slds-text-body_small slds-text-color_weak">
+                Toggle the demo user's permission set between "Name only" and "none assigned"
+                between runs. The Apex class here is "without sharing" throughout, so sharing
+                is neutralized and object/field permission is the only variable changing.
+            </p>
+            <lightning-button
+                label="Re-run all queries"
+                variant="brand"
+                onclick={runAll}
+                class="slds-m-top_small">
+            </lightning-button>
+        </div>
+
+        <template if:true={isLoading}>
+            <lightning-spinner alternative-text="Running..." size="small"></lightning-spinner>
+        </template>
+
+        <template for:each={results} for:item="r">
+            <div key={r.label} class="slds-p-around_small slds-p-horizontal_medium">
+                <div class="slds-box slds-theme_default">
+                    <p class="slds-text-heading_small">{r.label}</p>
+                    <p class="slds-text-body_small slds-text-color_weak slds-m-bottom_x-small">{r.explanation}</p>
+
+                    <template if:true={r.error}>
+                        <p class="slds-text-color_error">Error: {r.error}</p>
+                    </template>
+
+                    <template if:false={r.error}>
+                        <p class="slds-m-bottom_x-small"><strong>{r.count}</strong> record(s) returned</p>
+                        <lightning-datatable
+                            key-field="Id"
+                            data={r.records}
+                            columns={columns}
+                            hide-checkbox-column>
+                        </lightning-datatable>
+                    </template>
+                </div>
+            </div>
+        </template>
+    </lightning-card>
+</template>
