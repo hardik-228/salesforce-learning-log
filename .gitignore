@@ -47,7 +47,7 @@ $RECYCLE.BIN/
 **/.venv/
 **/venv/
 
-
+# Other files
 .prettierignore
 .prettierrc
 eslint.config.js
