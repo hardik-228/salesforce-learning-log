@@ -2,10 +2,10 @@
     <lightning-card title="Record-Level Access (Sharing Keywords)" icon-name="standard:account">
         <div class="slds-p-horizontal_medium slds-p-bottom_small">
             <div class="slds-text-body_small slds-text-color_weak slds-m-bottom_small">
-                <p class="slds-m-bottom_xx-small">Don't assign any Permission Set to demo user(No access to Account obj) and see the difference by changing the API version from 60.0 to 67.0:</p>
+                <p class="slds-m-bottom_xx-small">Don't assign any Permission Set to demo user(No access to Account obj) and see the difference by changing the API version to 67.0:</p>
                 <ul class="slds-list_dotted">
-                    <li><strong>In 60.0:</strong> Apex runs in system mode, so the user is able to see the records.</li>
-                    <li><strong>In 67.0:</strong> Apex runs in user mode, so it checks the user's permissions and applies Object/Field access.</li>
+                    <li><strong>Before 67.0:</strong> Apex runs in system mode, so the user is able to see the records.</li>
+                    <li><strong>From 67.0:</strong> Apex runs in user mode, so it checks the user's permissions and applies Object/Field access.</li>
                 </ul>
             </div>
             <lightning-button
