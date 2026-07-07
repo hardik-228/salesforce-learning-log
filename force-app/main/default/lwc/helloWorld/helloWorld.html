@@ -1,0 +1,10 @@
+<template>
+    <lightning-card title="Hello World" icon-name="custom:custom14">
+        <div class="slds-var-m-around_medium">
+            <p>Greeting from JS: {greeting}</p>
+            <template if:true={apexGreeting.data}>
+                <p>Greeting from Apex: {apexGreeting.data}</p>
+            </template>
+        </div>
+    </lightning-card>
+</template>
